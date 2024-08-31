@@ -13,7 +13,11 @@ public class UserService {
     private UserRepo userRepo;
 
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     public User saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
