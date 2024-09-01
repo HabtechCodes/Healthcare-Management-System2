@@ -12,7 +12,6 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public UserService(UserRepo userRepo) {
