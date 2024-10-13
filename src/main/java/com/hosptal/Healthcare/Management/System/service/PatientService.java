@@ -26,8 +26,9 @@ public class PatientService {
 
     public Patient getPatientById(int patientId) {
 
-        Optional<Patient> optionalPatient = patientRepository.findById(patientId);
-        return optionalPatient.orElse(new Patient());
+        return patientRepository.findById(patientId)
+                .orElseThrow(
+                        ()-> new RuntimeException("No patient found"));
     }
 
 
@@ -56,9 +57,8 @@ public class PatientService {
         if (optionalPatient.isPresent()) {
             patientRepository.deleteById(patientId);
             return "Patient deleted successfully";
-        } else {
-            return "Patient not found";
         }
+            return "Patient not found";
     }
 }
 

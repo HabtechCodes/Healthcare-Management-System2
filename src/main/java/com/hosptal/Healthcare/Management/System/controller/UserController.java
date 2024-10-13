@@ -2,6 +2,7 @@ package com.hosptal.Healthcare.Management.System.controller;
 
 
 import com.hosptal.Healthcare.Management.System.model.User;
+import com.hosptal.Healthcare.Management.System.service.JwtService;
 import com.hosptal.Healthcare.Management.System.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +19,15 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private JwtService jwtService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @PostMapping("register")
-    public User register(@RequestBody User user) {
+    public User registerUser(@RequestBody User user) {
 
-        return userService.saveUser(user);
+        return userService.registerUser(user);
 
     }
     @PostMapping("login")
@@ -33,7 +37,7 @@ public class UserController {
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
         if(authentication.isAuthenticated()) {
-            return "Success";
+            return jwtService.generateToken(user.getUsername());
         }
         return "Login failed";
     }

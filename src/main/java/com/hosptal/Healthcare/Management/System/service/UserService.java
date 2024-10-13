@@ -18,7 +18,7 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User saveUser(User user) {
+    public User registerUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepo.save(user);
 

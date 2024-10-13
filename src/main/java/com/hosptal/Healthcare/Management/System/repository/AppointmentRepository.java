@@ -14,4 +14,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
     @Query(value = "SELECT * FROM appointment WHERE patient_id = :id", nativeQuery = true)
     Optional<Appointment> findAppointmentByPatientId(@Param("id") int id);
 
+
 }
